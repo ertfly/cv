@@ -18,9 +18,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v7
+      - uses: actions/configure-pages@v6
+        with:
+          # cria/ajusta o site do Pages caso ainda não esteja configurado
+          # para build via Actions — evita o "Get Pages site failed"
+          enablement: true
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: '.'
 
@@ -32,4 +36,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
